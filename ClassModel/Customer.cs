@@ -5,8 +5,8 @@ namespace ClassModel
 {
     public class Customer
     {
-        //private string firstName;
-       // private string secondName;
+        private string firstName;
+        private string secondName;
 
         public int Customer_Id { get; set; }
 

@@ -10,6 +10,7 @@ namespace Project5.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Shop";
             return View();
         }
 
