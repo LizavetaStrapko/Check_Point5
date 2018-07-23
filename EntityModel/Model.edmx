@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="CustomerSet" EntityType="Model.Store.CustomerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="Model.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemSet" EntityType="Model.Store.ItemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ManagerSet" EntityType="Model.Store.ManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Order_ItemSet" EntityType="Model.Store.Order_ItemSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CustomerOrder" Association="Model.Store.CustomerOrder">
+      <End Role="Customer" EntitySet="CustomerSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="ManagerOrder" Association="Model.Store.ManagerOrder">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="ItemOrder_Item" Association="Model.Store.ItemOrder_Item">
+      <End Role="Item" EntitySet="ItemSet" />
+      <End Role="Order_Item" EntitySet="Order_ItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderOrder_Item" Association="Model.Store.OrderOrder_Item">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Order_Item" EntitySet="Order_ItemSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CustomerSet">
+    <Key>
+      <PropertyRef Name="Customer_Id" />
+    </Key>
+    <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Customer_First_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Customer_Last_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Phone_number" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Order_Id" />
+    </Key>
+    <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Customer_Id" Type="int" Nullable="false" />
+    <Property Name="Manager_Id" Type="int" Nullable="false" />
+    <Property Name="Customer_Customer_Id" Type="int" Nullable="false" />
+    <Property Name="Manager_Manager_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemSet">
+    <Key>
+      <PropertyRef Name="Item_Id" />
+    </Key>
+    <Property Name="Item_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Cost" Type="float" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ManagerSet">
+    <Key>
+      <PropertyRef Name="Manager_Id" />
+    </Key>
+    <Property Name="Manager_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Manager_First_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Manager_Last_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Order_ItemSet">
+    <Key>
+      <PropertyRef Name="Order_Id" />
+      <PropertyRef Name="Item_Id" />
+    </Key>
+    <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Item_Id" Type="int" Nullable="false" />
+    <Property Name="Item_amount" Type="int" Nullable="false" />
+    <Property Name="Total_cost" Type="float" Nullable="false" />
+    <Property Name="Item_Item_Id" Type="int" Nullable="false" />
+    <Property Name="Order_Order_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CustomerOrder">
+    <End Role="Customer" Type="Model.Store.CustomerSet" Multiplicity="1" />
+    <End Role="Order" Type="Model.Store.OrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Customer_Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ManagerOrder">
+    <End Role="Manager" Type="Model.Store.ManagerSet" Multiplicity="1" />
+    <End Role="Order" Type="Model.Store.OrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Manager_Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Manager_Manager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ItemOrder_Item">
+    <End Role="Item" Type="Model.Store.ItemSet" Multiplicity="1" />
+    <End Role="Order_Item" Type="Model.Store.Order_ItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="Item_Id" />
+      </Principal>
+      <Dependent Role="Order_Item">
+        <PropertyRef Name="Item_Item_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderOrder_Item">
+    <End Role="Order" Type="Model.Store.OrderSet" Multiplicity="1" />
+    <End Role="Order_Item" Type="Model.Store.Order_ItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Order_Id" />
+      </Principal>
+      <Dependent Role="Order_Item">
+        <PropertyRef Name="Order_Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CustomerSet" EntityType="Model.Customer" />
+          <EntitySet Name="OrderSet" EntityType="Model.Order" />
+          <EntitySet Name="ItemSet" EntityType="Model.Item" />
+          <EntitySet Name="ManagerSet" EntityType="Model.Manager" />
+          <EntitySet Name="Order_ItemSet" EntityType="Model.Order_Item" />
+          <AssociationSet Name="CustomerOrder" Association="Model.CustomerOrder">
+            <End Role="Customer" EntitySet="CustomerSet" />
+            <End Role="Order" EntitySet="OrderSet" />
+          </AssociationSet>
+          <AssociationSet Name="ManagerOrder" Association="Model.ManagerOrder">
+            <End Role="Manager" EntitySet="ManagerSet" />
+            <End Role="Order" EntitySet="OrderSet" />
+          </AssociationSet>
+          <AssociationSet Name="ItemOrder_Item" Association="Model.ItemOrder_Item">
+            <End Role="Item" EntitySet="ItemSet" />
+            <End Role="Order_Item" EntitySet="Order_ItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="OrderOrder_Item" Association="Model.OrderOrder_Item">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="Order_Item" EntitySet="Order_ItemSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_First_name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Customer_Last_Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Phone_number" Type="String" Nullable="false" MaxLength="20" />
+          <NavigationProperty Name="Order" Relationship="Model.CustomerOrder" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Manager_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Model.CustomerOrder" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Manager" Relationship="Model.ManagerOrder" FromRole="Order" ToRole="Manager" />
+          <NavigationProperty Name="Order_Item" Relationship="Model.OrderOrder_Item" FromRole="Order" ToRole="Order_Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Item_Id" />
+          </Key>
+          <Property Name="Item_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Cost" Type="Double" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order_Item" Relationship="Model.ItemOrder_Item" FromRole="Item" ToRole="Order_Item" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Manager_Id" />
+          </Key>
+          <Property Name="Manager_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manager_First_name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Manager_Last_name" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Order" Relationship="Model.ManagerOrder" FromRole="Manager" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order_Item">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+            <PropertyRef Name="Item_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_Id" Type="Int32" Nullable="false" />
+          <Property Name="Item_amount" Type="Int32" Nullable="false" />
+          <Property Name="Total_cost" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Model.ItemOrder_Item" FromRole="Order_Item" ToRole="Item" />
+          <NavigationProperty Name="Order" Relationship="Model.OrderOrder_Item" FromRole="Order_Item" ToRole="Order" />
+        </EntityType>
+        <Association Name="CustomerOrder">
+          <End Type="Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Model.Order" Role="Order" Multiplicity="*" />
+        </Association>
+        <Association Name="ManagerOrder">
+          <End Type="Model.Manager" Role="Manager" Multiplicity="1" />
+          <End Type="Model.Order" Role="Order" Multiplicity="*" />
+        </Association>
+        <Association Name="ItemOrder_Item">
+          <End Type="Model.Item" Role="Item" Multiplicity="1" />
+          <End Type="Model.Order_Item" Role="Order_Item" Multiplicity="*" />
+        </Association>
+        <Association Name="OrderOrder_Item">
+          <End Type="Model.Order" Role="Order" Multiplicity="1" />
+          <End Type="Model.Order_Item" Role="Order_Item" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="CustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Customer)">
+        <MappingFragment StoreEntitySet="CustomerSet">
+          <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+          <ScalarProperty Name="Customer_First_name" ColumnName="Customer_First_name" />
+          <ScalarProperty Name="Customer_Last_Name" ColumnName="Customer_Last_Name" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Order)">
+        <MappingFragment StoreEntitySet="OrderSet">
+          <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Item)">
+        <MappingFragment StoreEntitySet="ItemSet">
+          <ScalarProperty Name="Item_Id" ColumnName="Item_Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManagerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Manager)">
+        <MappingFragment StoreEntitySet="ManagerSet">
+          <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+          <ScalarProperty Name="Manager_First_name" ColumnName="Manager_First_name" />
+          <ScalarProperty Name="Manager_Last_name" ColumnName="Manager_Last_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_ItemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Order_Item)">
+        <MappingFragment StoreEntitySet="Order_ItemSet">
+          <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+          <ScalarProperty Name="Item_Id" ColumnName="Item_Id" />
+          <ScalarProperty Name="Item_amount" ColumnName="Item_amount" />
+          <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CustomerOrder" TypeName="Model.CustomerOrder" StoreEntitySet="OrderSet">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_Id" ColumnName="Customer_Customer_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ManagerOrder" TypeName="Model.ManagerOrder" StoreEntitySet="OrderSet">
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Manager_Id" ColumnName="Manager_Manager_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ItemOrder_Item" TypeName="Model.ItemOrder_Item" StoreEntitySet="Order_ItemSet">
+      <EndProperty Name="Item">
+        <ScalarProperty Name="Item_Id" ColumnName="Item_Item_Id" />
+      </EndProperty>
+      <EndProperty Name="Order_Item">
+        <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+        <ScalarProperty Name="Item_Id" ColumnName="Item_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderOrder_Item" TypeName="Model.OrderOrder_Item" StoreEntitySet="Order_ItemSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Order_Id" ColumnName="Order_Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Order_Item">
+        <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+        <ScalarProperty Name="Item_Id" ColumnName="Item_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
