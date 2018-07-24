@@ -36,5 +36,9 @@ namespace ClassModel
             this.firstName = firstName;
             this.secondName = secondName;
         }
+
+        public Customer()
+        {
+        }
     }
 }

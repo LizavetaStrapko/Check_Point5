@@ -27,6 +27,10 @@
         {
             Title = title;
         }
+
+        public Item()
+        {
+        }
     }
 }
    

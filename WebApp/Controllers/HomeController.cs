@@ -12,8 +12,15 @@ namespace WebApp.Controllers
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
-            return RedirectToAction("Index", "MainTable");
+
+            return View();
+           // return RedirectToAction("Index", "MainTable");
         }
+
+        //public ActionResult ErrorAccess()
+        //{
+        //    return View();
+        //}
 
         //public ActionResult About()
         //{

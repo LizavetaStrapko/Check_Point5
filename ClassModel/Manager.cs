@@ -23,5 +23,9 @@ namespace ClassModel
             Manager_First_name = firstName;
             Manager_Last_name = lastName;
         }
+
+        public Manager()
+        {
+        }
     }
 }
