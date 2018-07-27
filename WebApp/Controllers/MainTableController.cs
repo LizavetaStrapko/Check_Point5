@@ -50,7 +50,7 @@ namespace WebApp.Controllers
                 case TableEnum.None:
                     return new EmptyResult();
                 case TableEnum.CustomerSet:
-                    return RedirectToAction("Index", "Customer");
+                    return RedirectToAction("Index", "Customers");
                 case TableEnum.ManagerSet:
                     return RedirectToAction("Index", "Manager");
                 case TableEnum.ItemSet:

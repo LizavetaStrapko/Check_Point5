@@ -283,6 +283,9 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Home\GetUsers.cshtml" />
+    <Content Include="Views\Shared\PartialjQTable.cshtml" />
+    <Content Include="Views\Shared\PartialjQValidation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

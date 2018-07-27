@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -14,26 +15,37 @@ namespace WebApp.Controllers
                 return RedirectToAction("Login", "Account");
 
             return View();
-           // return RedirectToAction("Index", "MainTable");
+            return RedirectToAction("Index", "MainTable");
+            return RedirectToAction("Create", "Customers");
         }
 
-        //public ActionResult ErrorAccess()
-        //{
-        //    return View();
-        //}
+        public ActionResult GetUsers()
+        {
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                users = db.Users.ToList();
+            }
+            return View(users);
+        }
+        
+        public ActionResult ErrorAccess()
+        {
+            return View();
+        }
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
 
-        //    return View();
-        //}
+            return View();
+        }
 
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
-        //    return View();
-        //}
+            return View();
+        }
     }
 }

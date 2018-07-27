@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WebApp.Controllers.TableControllers
 {
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     public class CustomersController : Controller
     {
         private CustomerBL _customerBL = new CustomerBL();
@@ -64,7 +64,7 @@ namespace WebApp.Controllers.TableControllers
         {
             if (ModelState.IsValid)
             {
-                _customerBL.Add(new global::ClassModel.Customer()
+                _customerBL.Add(new ClassModel.Customer()
                 {
                     Customer_First_name = customer.Customer_First_name,
                     Customer_Last_Name = customer.Customer_Last_Name,

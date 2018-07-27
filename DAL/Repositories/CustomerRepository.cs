@@ -126,7 +126,7 @@ public  IEnumerable<Customer> GetAll()
 
                public Customer GetRecord(int id)
         {
-            var record = Context.CustomerSet.Include("Orders").FirstOrDefault(x => x.Customer_Id == id);
+            var record = Context.CustomerSet.Include("Order").FirstOrDefault(x => x.Customer_Id == id);
             Customer customer = ToObject(record);
 
             List<Order> orders = record.Order.Select(item => OrderRepository.ToObject(item)).ToList();

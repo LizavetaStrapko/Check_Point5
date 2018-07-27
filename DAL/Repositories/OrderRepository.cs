@@ -139,7 +139,7 @@ public IEnumerable<Order> GetAll()
 public Order GetRecord(int id)
 {
     var record =
-        Context.OrderSet.Include("OrderItems")
+        Context.OrderSet.Include("Order_Item")
             .Include("Customer")
             .Include("Manager")
             .FirstOrDefault(x => x.Order_Id == id);
