@@ -101,7 +101,7 @@ namespace DAL.Repositories
     
 public  IEnumerable<Manager> GetAll()
 {
-    var managers = Context.ManagerSet.Include("Orders");
+    var managers = Context.ManagerSet.Include("Order");
     List<Manager> listManagers = new List<Manager>();
 
     foreach (var item in managers)
@@ -112,7 +112,7 @@ public  IEnumerable<Manager> GetAll()
 }
 public Manager GetRecord(int id)
 {
-    var record = Context.ManagerSet.Include("Orders").FirstOrDefault(x => x.Manager_Id == id);
+    var record = Context.ManagerSet.Include("Order").FirstOrDefault(x => x.Manager_Id == id);
    Manager manager = ToObject(record);
 
     List<Order> orders = record.Order.Select(item => OrderRepository.ToObject(item)).ToList();

@@ -54,14 +54,14 @@ namespace WebApp.Controllers.TableControllers
                 return View(products);
             }
 
-            [Authorize(Roles = "Admin")]
+           [Authorize(Roles = "admin")]
             public ActionResult Create()
             {
                 return View();
             }
 
             [HttpPost]
-            [Authorize(Roles = "Admin")]
+            [Authorize(Roles = "admin")]
             public ActionResult Create(Item item)
             {
                 if (ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace WebApp.Controllers.TableControllers
                 }
             }
 
-            [Authorize(Roles = "Admin")]
+            [Authorize(Roles = "admin")]
             public ActionResult Edit()
             {
                 int itemId = int.Parse(RouteData.Values["id"].ToString());

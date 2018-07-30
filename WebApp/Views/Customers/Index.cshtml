@@ -1,19 +1,11 @@
 ﻿@model IEnumerable<Project5.Models.Customer>
-@section jQ
-{
-    @Html.Partial("PartialjQTable")
-}
+
 <h2>Customers</h2>
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm())
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString")
-        <Input type="submit" value="Search" />
-    </p>
-}
 <table class="footable" data-page-navigation=".pagination" data-page-size="10">
     <thead>
         <tr>
@@ -26,12 +18,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Customer_Last_Name)
             </th>
-             <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Phone_number)
             </th>
             <th></th>
         </tr>
     </thead>
+
     <tbody>
         @if (Model != null)
         {
@@ -51,17 +44,24 @@
                         @Html.DisplayFor(modelItem => item.Phone_number)
                     </td>
                     <td>
+                    <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Customer_Id })
                     </td>
+
+
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
                 </tr>
             }
         }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="10">
-                <div class="pagination pagination-centered"></div>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    <div class="pagination pagination-centered"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>

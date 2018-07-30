@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WebApp.Controllers.TableControllers
 {
-   // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class CustomersController : Controller
     {
         private CustomerBL _customerBL = new CustomerBL();

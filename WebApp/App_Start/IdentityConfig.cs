@@ -57,7 +57,7 @@ namespace WebApp
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = false,
             };
 
             // Настройка параметров блокировки по умолчанию

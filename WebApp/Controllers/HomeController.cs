@@ -9,26 +9,32 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        //public ActionResult Index()
+        //{
+        //    if (!User.Identity.IsAuthenticated)
+        //        return RedirectToAction("Login", "Account");
+
+        //    return View();
+        //    return RedirectToAction("Index", "MainTable");
+        //    return RedirectToAction("Create", "Customers");
+        //}
+
+        //public ActionResult GetUsers()
+        //{
+        //    List<ApplicationUser> users = new List<ApplicationUser>();
+        //    using (ApplicationDbContext db = new ApplicationDbContext())
+        //    {
+        //        users = db.Users.ToList();
+        //    }
+        //    return View(users);
+        //}
+
         public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
+            ViewBag.Title = "Shop";
             return View();
-            return RedirectToAction("Index", "MainTable");
-            return RedirectToAction("Create", "Customers");
         }
 
-        public ActionResult GetUsers()
-        {
-            List<ApplicationUser> users = new List<ApplicationUser>();
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                users = db.Users.ToList();
-            }
-            return View(users);
-        }
-        
         public ActionResult ErrorAccess()
         {
             return View();
